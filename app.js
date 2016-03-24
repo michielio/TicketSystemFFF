@@ -8,4 +8,4 @@
  *
  * Main module of the application.
  */
-window.app = angular.module('myApp', []));
+window.app = angular.module('myApp', []);
