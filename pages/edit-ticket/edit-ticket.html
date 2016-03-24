@@ -1,0 +1,44 @@
+<div class="container" ng-app="CreateTicketCtrl">
+    <h1 style="text-align: center">Ticket Systeem FFF</h1>
+    <h2 style="text-align: center">Ticket Bewerken</h2>
+    <form role="form">
+        <div class="form-group">
+            <label for="datum">Time: </label>
+            <label type="date" id="datum" controller="loadCurrentDateTime">{{date | date:'dd-MM-yyyy'}}</label>
+        </div>
+
+        <div class="form-group">
+            <label for="ticketNr">Ticket Number:</label>
+            <label id="ticketNr" ng-model="ticketNumber">10</label>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type="email" class="form-control" id="email" ng-model="emailConnectedToTicket">
+        </div>
+
+        <div class="form-group">
+            <label for="ticketName">Ticket Naam:</label>
+            <input type="ticketName" class="form-control" id="ticketName" ng-model="ticketName">
+        </div>
+
+        <div class="form-group">
+            <label for="ticketType">Ticket Type:</label>
+            <select name="selectTicketType" id="selectTicketType" ng-model="selectedTicketType">
+                <option ng-repeat="option in ticketTypes" value="{{option}}">{{option.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="ticketDescription">Ticket Beschrijving:</label>
+            <textarea type="ticketDescription" class="form-control" id="ticketDescription" ng-model="ticketDescription"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="ticketDescription">Krijg status updates over deze ticket via de mail:</label>
+            <input type="checkbox" ng-model="revieveUpdates">
+        </div>
+
+        <button type="submit" class="btn btn-default" ng-click="createTicket()">Submit</button>
+    </form>
+</div>

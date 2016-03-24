@@ -2,8 +2,10 @@
     'use strict';
     window.app.service('FirebaseService', [function () {
 
-        var FIREBASE_DATABASE_URL = "https://glowing-inferno-1129.firebaseio.com/";
+        var FIREBASE_DATABASE_URL = "https://intense-fire-2806.firebaseio.com/";
         var ref = new Firebase(FIREBASE_DATABASE_URL);
+        var administratorsRef = ref.child("administrators");
+        
         var globalAuthData = undefined;
 
         this.login = function (email, password) {
@@ -19,6 +21,21 @@
                 }
             });
         }
+        
+        this.logout = function() {
+            ref.unauth();
+            globalAuthData = null;
+        }
+        
+        this.isAdmin = function(uid) {
+            administratorsRef.once('value', function(snapshot){
+                var databaseValue = snapshot.val();
+                if(uid == databaseValue)
+                    return true;
+                else 
+                    return false;
+            });
+        }
 
         this.sessionExists = function () {
             var isValidSession = false;
@@ -28,16 +45,17 @@
             return isValidSession;
         }
 
-        this.getGlobalAuthData() {
+        this.getGlobalAuthData = function() {
             return globalAuthData;
         }
 
-        this.setGlobalAuthData(newGlobalAuthData) {
+        this.setGlobalAuthData = function(newGlobalAuthData) {
             globalAuthData = newGlobalAuthData;
         }
         
         this.saveTicket = function (ticket){
         // insert code for persisting ticket to firebase database
+            ref.push(ticket) ;
         }
 
     }]);
