@@ -3,5 +3,21 @@ Global css file for all pages
 */
 
 h1 {
-  color: green !important;
+    color: green !important;
+}
+
+
+/** ticket overview css **/
+
+.form-group-custom {
+    margin-left: 5px;
+}
+
+tbody tr:hover {
+    cursor: pointer;
+}
+
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+    background-color: #e6e6e6;
 }

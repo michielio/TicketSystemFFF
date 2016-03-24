@@ -36,7 +36,7 @@ console.log("hallo!");
     
     .state('ticket-overview', {
         url: '/ticket-overview',
-        templateUrl: 'pages/overview-ticket/overview-ticket.html',
+        templateUrl: 'pages/ticket-overview/ticket-overview.html',
         controller: 'TicketOverviewCtrl',
         onEnter: function ($state) {
             console.log("Welcome on ticket-overview");
