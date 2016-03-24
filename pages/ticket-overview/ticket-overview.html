@@ -7,7 +7,7 @@
             <div class="panel-heading">
                 <form class="form-inline">
                     <div class="form-group form-group-custom">
-                        <input class="form-control" id="search" placeholder="search..." name="search" ng-change="searchFilter()" ng-model="myValue" />
+                        <input class="form-control" id="search" placeholder="search..." name="search" ng-model="search" />
                     </div>
                     <div class="form-group form-group-custom">
                         <label for="filterPriority">Priority </label>
@@ -32,8 +32,8 @@
                     <div class="form-group form-group-custom">
                         <label for="filterTicketCreation">Sort by creation</label>
                         <select class="form-control" id="priority" name="filterTicketCreation" ng-change="creationFilter()" ng-model="creation">
-                            <option value="">Newest</option>
-                            <option value="-">Latest</option>
+                            <option value="ticketnumber">Newest</option>
+                            <option value="-ticketnumber">Latest</option>
                         </select>
                     </div>
                 </form>
@@ -59,10 +59,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="clickable-row" ng-click="editTicket(ticket.ticketnumber)" ng-repeat="ticket in tickets | 
-                                filter:{ type: type, priority: priority } | orderBy: 'ticketnumber'">
-                                <!--  | filter:{ticket.type: type} | orderBy: '-ticket.tickernumber' -->
-                                <!-- warning = prioriteit gemiddeld, danger = hoog, laag = success-->
+                            <tr class="clickable-row" ng-class="setPriorityColour(ticket.priority)" ng-click="editTicket(ticket.ticketnumber)" ng-repeat="ticket in tickets | filter:filterTickets | orderBy: creation">
                                 <td class="">{{ ticket.ticketnumber }}</td>
                                 <td class="">{{ ticket.created }}</td>
                                 <td class="">{{ ticket.subject }}</td>
