@@ -1,0 +1,10 @@
+{
+  "name": "alpha",
+  "version": "1.0.0",
+  "author": "PaulvdBijl",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "bower": "^1.5.3"
+  }
+}
