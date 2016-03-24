@@ -35,6 +35,10 @@
         this.setGlobalAuthData(newGlobalAuthData) {
             globalAuthData = newGlobalAuthData;
         }
+        
+        this.saveTicket = function (ticket){
+        // insert code for persisting ticket to firebase database
+        }
 
     }]);
 })();
