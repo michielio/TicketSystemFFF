@@ -1,18 +1,34 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Ticketsysteem-FFF</title>
-        <link rel="stylesheet" href="app.css">
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>   
-    </head>
 
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="app.js"></script>
+<head>
+    <meta charset="utf-8">
+    <title>Ticketsysteem-FFF</title>
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/bootstrap.min.css">
+</head>
 
-    <body ng-app="myApp"> 
-        <h1>Ticket systeem</h1>
-    </body>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="app.js"></script>
+
+<!--Controllers of all the pages-->
+<script src="pages/test/test.js"></script>
+<script src="pages/login/login.js"></script>
+<script src="pages/create-ticket/create-ticket.js"></script>
+<script src="pages/ticket-overview/ticket-overview.js"></script>
+
+
+<!--Main body for all the pages-->
+
+<body ng-app="myApp">
+    <h1>Ticket systeem</h1>
+
+    <div class="view-container">
+        <div ui-view class="view-frame">
+        </div>
+    </div>
+</body>
 
 </html>
