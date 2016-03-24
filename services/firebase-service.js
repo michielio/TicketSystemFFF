@@ -2,7 +2,7 @@
     'use strict';
     window.app.service('FirebaseService', [function () {
 
-        var FIREBASE_DATABASE_URL = "https://glowing-inferno-1129.firebaseio.com/";
+        var FIREBASE_DATABASE_URL = "https://intense-fire-2806.firebaseio.com/";
         var ref = new Firebase(FIREBASE_DATABASE_URL);
         var administratorsRef = ref.child("administrators");
         
