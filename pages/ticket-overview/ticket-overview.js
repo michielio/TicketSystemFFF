@@ -8,7 +8,7 @@
      * # TestCtrl
      * Controller of the trunkApp
      */
-    window.app.controller('TicketOverviewCtrl', ['$scope', function ($scope) {
+    window.app.controller('TicketOverviewCtrl', ['$scope', 'FirebaseService', function ($scope, FirebaseService) {
 
         $scope.priority = '';
         $scope.creation = 'ticketnumber';
@@ -41,13 +41,11 @@
                 'status': 'unsigned',
                 'priority': 'average',
                            }
-
-
-
                          ];
 
-        $scope.editTicket = function (ticketnumber) {
+        $scope.editTicket = function (selectedTicket) {
             console.log(ticketnumber);
+            FirebaseService.HoldTempOverviewTicketObjectFromTicketOverview(selectedTicket);
         }
 
         $scope.setPriorityColour = function (priority) {

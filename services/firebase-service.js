@@ -5,7 +5,9 @@
         var FIREBASE_DATABASE_URL = "https://intense-fire-2806.firebaseio.com/";
         var ref = new Firebase(FIREBASE_DATABASE_URL);
         var administratorsRef = ref.child("administrators");
-
+        
+        var tempSelectedTicketFromOverview ; 
+        
         var globalAuthData = undefined;
 
         this.login = function (email, password) {
@@ -66,6 +68,14 @@
             }, function (errorObject) {
                 console.log("The read failed: " + errorObject.code);
             });
+        }
+        
+        this.HoldTempOverviewTicketObjectFromTicketOverview = function(selectedTicketObject){
+            tempSelectedTicketFromOverview = selectedTicketObject ;
+        }
+        
+        this.GetSelectedTicketObjectFromOverview = function(){
+            return tempSelectedTicketFromOverview ;
         }
     }]);
 })();

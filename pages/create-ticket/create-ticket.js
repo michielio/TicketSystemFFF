@@ -40,9 +40,9 @@
             var na = "NA";
 
             var newTicket = {
-                ticketnr: $scope.ticketNumber,
+                ticketnumber: $scope.ticketNumber,
                 subject: $scope.ticketName,
-                creationTime: creationTime,
+                created: creationTime,
                 type: $scope.selectedTicketType,
                 email: $scope.emailConnectedToTicket,
                 description: $scope.ticketDescription,

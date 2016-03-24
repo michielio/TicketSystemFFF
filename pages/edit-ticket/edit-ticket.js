@@ -9,6 +9,11 @@
      * Controller of the trunkApp
      */
     window.app.controller('EditTicketCtrl', ['$scope', 'FirebaseService', function ($scope, FirebaseService) {
-
+        
+        $scope.SelectedTicket = function(){
+            return FirebaseService.GetSelectedTicketObjectFromOverview() ;
+        }
+        
+        
 	 }]);
 })();
