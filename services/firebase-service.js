@@ -38,6 +38,7 @@
         
         this.saveTicket = function (ticket){
         // insert code for persisting ticket to firebase database
+            ref.push(ticket) ;
         }
 
     }]);
