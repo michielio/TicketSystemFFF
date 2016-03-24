@@ -5,7 +5,8 @@
         "angular": "^1.4.7",
         "angular-ui-router": "^0.2.8",
         "angular-route": "^1.5.2",
-        "bootstrap": "^1.4.0"
+        "bootstrap": "^1.4.0",
+        "firebase": "^1.2.0"
     },
     "appPath": "app",
     "moduleName": "trunkApp",
