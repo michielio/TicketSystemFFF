@@ -8,7 +8,7 @@
      * # TestCtrl
      * Controller of the trunkApp
      */
-    window.app.controller('LoginCtrl', ['$scope', function ($scope) {
+    window.app.controller('LoginCtrl', ['$scope','FirebaseService', function ($scope, FirebaseService) {
         $scope.message = 'hello world';
 
         var ref = new Firebase("https://scorching-fire-6609.firebaseio.com/");
@@ -17,24 +17,10 @@
         $loginButton.click(function () {
             var email = $emailInput.val();
             var password = $passInput.val();
-            login({
+            FirebaseService.login({
                 email: email,
                 password: password
             });
         });
-
-        function login(user) {
-            ref.authWithPassword({
-                email: user.email,
-                password: user.password
-            }, function (error, authData) {
-                if (error) {
-                    console.log("Login Failed!", error);
-                } else {
-                    globalAuthData = authData;
-                    console.log("Authenticated successfully with payload:", authData);
-                }
-            })
-        };
 	 }]);
 })();
