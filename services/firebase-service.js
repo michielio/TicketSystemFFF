@@ -5,7 +5,7 @@
         var FIREBASE_DATABASE_URL = "https://intense-fire-2806.firebaseio.com/";
         var ref = new Firebase(FIREBASE_DATABASE_URL);
         var administratorsRef = ref.child("administrators");
-        
+
         var globalAuthData = undefined;
 
         this.login = function (email, password) {
@@ -21,18 +21,18 @@
                 }
             });
         }
-        
-        this.logout = function() {
+
+        this.logout = function () {
             ref.unauth();
             globalAuthData = null;
         }
-        
-        this.isAdmin = function(uid) {
-            administratorsRef.once('value', function(snapshot){
+
+        this.isAdmin = function (uid) {
+            administratorsRef.once('value', function (snapshot) {
                 var databaseValue = snapshot.val();
-                if(uid == databaseValue)
+                if (uid == databaseValue)
                     return true;
-                else 
+                else
                     return false;
             });
         }
@@ -45,18 +45,27 @@
             return isValidSession;
         }
 
-        this.getGlobalAuthData = function() {
+        this.getGlobalAuthData = function () {
             return globalAuthData;
         }
 
-        this.setGlobalAuthData = function(newGlobalAuthData) {
+        this.setGlobalAuthData = function (newGlobalAuthData) {
             globalAuthData = newGlobalAuthData;
         }
-        
-        this.saveTicket = function (ticket){
-        // insert code for persisting ticket to firebase database
-            ref.push(ticket) ;
+
+        this.saveTicket = function (ticket) {
+            // insert code for persisting ticket to firebase database
+            ref.push(ticket);
         }
 
+        this.GetDataFromDb = function () {
+            ref.on("value", function (snapshot) {
+                var messagesFromDb = snapshot.val();
+                
+
+            }, function (errorObject) {
+                console.log("The read failed: " + errorObject.code);
+            });
+        }
     }]);
 })();
