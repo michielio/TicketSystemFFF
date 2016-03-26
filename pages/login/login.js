@@ -8,19 +8,13 @@
      * # TestCtrl
      * Controller of the trunkApp
      */
-    window.app.controller('LoginCtrl', ['$scope','FirebaseService', function ($scope, FirebaseService) {
-        $scope.message = 'hello world';
-
-        var ref = new Firebase("https://scorching-fire-6609.firebaseio.com/");
-        var globalAuthData;
-        
-        $loginButton.click(function () {
-            var email = $emailInput.val();
-            var password = $passInput.val();
+    window.app.controller('LoginCtrl', ['$scope','FirebaseService', function ($scope, FirebaseService) {       
+        $scope.loginClick = function (email, pass) {            
             FirebaseService.login({
                 email: email,
-                password: password
-            });
-        });
-	 }]);
+                password: pass
+            });            
+        };  
+        
+	 }]);    
 })();

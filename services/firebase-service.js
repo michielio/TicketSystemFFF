@@ -4,11 +4,11 @@
 
         var FIREBASE_DATABASE_URL = "https://intense-fire-2806.firebaseio.com/";
         var ref = new Firebase(FIREBASE_DATABASE_URL);
-        var administratorsRef = ref.child("administrators");
+        var administratorsRef = ref.child("administrator");
 
         var globalAuthData = undefined;
 
-        this.login = function (email, password) {
+        this.login = function (user) {
             ref.authWithPassword({
                 email: user.email,
                 password: user.password
@@ -18,6 +18,11 @@
                 } else {
                     globalAuthData = authData;
                     console.log("Authenticated successfully with payload:", authData);
+                    if (this.isAdmin(authData)) {
+                        $scope.$state.go('ticket-overview');
+                    } else {
+                        $scope.$state.go('create-ticket');
+                    }
                 }
             });
         }
@@ -27,13 +32,18 @@
             globalAuthData = null;
         }
 
-        this.isAdmin = function (uid) {
-            administratorsRef.once('value', function (snapshot) {
+        this.isAdmin = function (auth) {
+            console.log("In isAdmin");
+            administratorsRef.on("value", function (snapshot) {
+                console.log(snapshot.val());
                 var databaseValue = snapshot.val();
-                if (uid == databaseValue)
+                if (auth.uid == databaseValue)
                     return true;
                 else
                     return false;
+            }, function (error) {
+                console.log("The read failed: " + error);
+                return false;
             });
         }
 
@@ -61,7 +71,7 @@
         this.GetDataFromDb = function () {
             ref.on("value", function (snapshot) {
                 var messagesFromDb = snapshot.val();
-                
+
 
             }, function (errorObject) {
                 console.log("The read failed: " + errorObject.code);

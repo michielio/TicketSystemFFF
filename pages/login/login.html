@@ -10,13 +10,13 @@
                         <div id="login_form">
                             <div class="form-group">
                                 <label for="labelEmail">Email adres:</label>
-                                <input type="email" class="form-control" id="txtEmail" placeholder="Enter email" name="email" />
+                                <input type="email" class="form-control" id="txtEmail" placeholder="Enter email" name="email" ng-model="email" />
                             </div>
                             <div class="form-group" style="margin-top:50px;">
                                 <label for="labelPassword">Password:</label>
-                                <input type="password" class="form-control" id="txtPass" placeholder="Password" name="password" />
+                                <input type="password" class="form-control" id="txtPass" placeholder="Password" name="password" ng-model="password" />
                             </div>
-                            <button type="button" id="login_button" class="btn btn-default btn-block" style="margin-top:40px;">Login</button>
+                            <button type="button" id="login_button" class="btn btn-default btn-block" style="margin-top:40px;" ng-click="loginClick(email, password)">Login</button>
                         </div>
                     </div>
                 </div>
