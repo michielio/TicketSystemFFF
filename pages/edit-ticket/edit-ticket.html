@@ -1,57 +1,66 @@
-<div class="container" ng-app="CreateTicketCtrl">
+<div class="container" ng-app="EditTicketCtrl">
     <h1 style="text-align: center">Ticket Systeem FFF</h1>
     <h2 style="text-align: center">Ticket Bewerken</h2>
     <form role="form">
         <div class="form-group">
             <label for="ticketNr">Ticket Number:</label>
-            <label id="ticketNr" ng-model="ticketNumber">{{SelectedTicket.ticketnumber}}</label>
+            <label id="ticketNr" ng-model="SelectedTicket.ticketnumber">{{SelectedTicket.ticketnumber}}</label>
         </div>
 
         <div class="form-group">
             <label for="ticketCreationTime">Ticket Creation Time:</label>
-            <label id="ticketCreationTime" ng-model="created">{{SelectedTicket.created}}</label>
-        </div>
-
-        <div class="form-group">
-            <label for="ticketName">Ticket Naam:</label>
-            <input type="ticketName" class="form-control" id="ticketName" ng-model="ticketName" value="{{SelectedTicket.subject}}">
-        </div>
-
-        <div class="form-group">
-            <label for="ticketDescription">Ticket Beschrijving:</label>
-            <textarea type="ticketDescription" class="form-control" id="ticketDescription" ng-model="ticketDescription" value="{{SelectedTicket.description}}"></textarea>
+            <label id="ticketCreationTime" ng-model="SelectedTicket.created">{{SelectedTicket.created}}</label>
         </div>
 
         <div class="form-group">
             <label for="email">Email Address:</label>
-            <input type="email" class="form-control" id="email" ng-model="emailConnectedToTicket" value="{{SelectedTicket.email}}">
+            <input type="email" class="form-control" id="email" ng-model="SelectedTicket.email">
         </div>
 
         <div class="form-group">
+            <label for="ticketName">Ticket Naam:</label>
+            <input type="ticketName" class="form-control" id="ticketName" ng-model="SelectedTicket.subject">
+        </div>
+
+
+        <div class="form-group">
+            <label for="ticketDescription">Ticket Beschrijving:</label>
+            <textarea type="ticketDescription" class="form-control" id="ticketDescription" ng-model="SelectedTicket.description"></textarea>
+        </div>
+
+
+        <div class="form-group">
             <label for="selectedTicketType">Ticket Type:</label>
-            <select name="selectTicketType" id="selectTicketType" ng-model="selectedTicketType">
-                <option ng-repeat="option in ticketTypes" value="{{SelectedTicket.type}}">{{option.name}}</option>
+            <select name="selectTicketType" id="selectTicketType" ng-model="SelectedTicket.type">
+                <option ng-repeat="option in ticketTypes">{{option.name}}</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="ticketSatus">Ticket Status:</label>
-            <select name="ticketSatus" id="ticketSatus" ng-model="ticketSatus">
-                <option ng-repeat="option in ticketSatusses" value="{{SelectedTicket.status}}">{{option.name}}</option>
+            <select name="ticketSatus" id="ticketSatus" ng-model="SelectedTicket.status">
+                <option ng-repeat="option in statusTypes">{{option.name}}</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="ticketPrioriteit">Ticket Prioriteit:</label>
-            <select name="ticketPrioriteit" id="ticketPrioriteit" ng-model="ticketPrioriteit">
-                <option ng-repeat="option in ticketPriorities" value="{{SelectedTicket.priority}}">{{option.name}}</option>
+            <label for="ticketPriority">Ticket Prioriteit:</label>
+            <select name="ticketPriority" id="ticketPriority" ng-model="SelectedTicket.priority">
+                <option ng-repeat="option in priorityTypes">{{option.name}}</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="ticketSolved">Ticket Solved:</label>
-            <input id="ticketSolved" type="checkbox" ng-model="ticketSolved">
+            <input id="ticketSolved" type="checkbox" ng-model="SelectedTicket.ticketSolved" ng-click="IsTicketSolved()">
         </div>
+
+        
+        <div id="ticketSolutionObject" class="hidden form-group">
+            <label for="ticketSolution">Ticket Solution:</label>
+            <textarea type="ticketSolution" class="form-control" id="ticketSolution" ng-model="SelectedTicket.solution"></textarea>
+        </div>
+
 
         <button type="submit" class="btn btn-default" ng-click="editTicket()">Submit</button>
     </form>
