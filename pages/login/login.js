@@ -13,27 +13,21 @@
             FirebaseService.login({
                 email: email,
                 password: pass
-            }).then(function (resp) {
+            }).then(function (userType) {
                 // succesful response
-                if ($scope.checkUserType()) {
+                if (userType == "admin") {
                     // user is admin proceed to ticket-overview page
                     $state.go("ticket-overview");
-                } else {
+                } else if (userType == "regular") {
                     // normal user proceed to create-ticket page
                     $state.go("create-ticket");
+                } else {
+                    // something went wrong this is a unexpected userType
                 }
             }, function (error) {
                 // firebase coudn't find a match with username and password
+                console.log("No matching username and password!");
             });
         };
-        
-        $scope.checkUserType = function(){
-            FirebaseService.isUserAdmin().then(function(resp){
-                return resp;
-            },function(error){
-                return error;
-            })
-        }
-
 	 }]);
 })();
