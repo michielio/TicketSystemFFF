@@ -55,21 +55,3 @@ window.app = angular.module('myApp', ['ui.router'])
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/');
 });
-
-window.app.factory('SharedDateService', function () {
-        var savedData = {}
-
-        function set(data) {
-            savedData = data;
-        }
-
-        function get() {
-            return savedData;
-        }
-
-        return {
-            set: set,
-            get: get
-        }
-
-    });
