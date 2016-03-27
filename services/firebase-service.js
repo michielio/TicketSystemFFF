@@ -1,53 +1,58 @@
 (function () {
     'use strict';
-    window.app.service('FirebaseService', [function () {
-
+    window.app.service('FirebaseService', ['$q', function ($q) {
+        var FirebaseService = this;
         var FIREBASE_DATABASE_URL = "https://intense-fire-2806.firebaseio.com/";
         var ref = new Firebase(FIREBASE_DATABASE_URL);
         var administratorsRef = ref.child("administrator");
 
         var globalAuthData = undefined;
 
-        this.login = function (user) {
+        FirebaseService.login = function (user) {
+            // with '$q' we can make a piece of synchronous code
+            var defer = $q.defer();
+            var isLoginSuccesful = false
             ref.authWithPassword({
                 email: user.email,
                 password: user.password
             }, function (error, authData) {
                 if (error) {
                     console.log("Login Failed!", error);
+                    defer.reject(isLoginSuccesful);
                 } else {
                     globalAuthData = authData;
                     console.log("Authenticated successfully with payload:", authData);
-                    if (this.isAdmin(authData)) {
-                        $scope.$state.go('ticket-overview');
-                    } else {
-                        $scope.$state.go('create-ticket');
-                    }
+                    isLoginSuccesful = true;
+                    defer.resolve(isLoginSuccesful);
                 }
             });
+            return defer.promise;
         }
 
-        this.logout = function () {
+        FirebaseService.logout = function () {
             ref.unauth();
             globalAuthData = null;
         }
 
-        this.isAdmin = function (auth) {
-            console.log("In isAdmin");
+        FirebaseService.isUserAdmin = function () {
+            // with '$q' we can make a piece of synchronous code
+            var defer = $q.defer();
+            var isUserAdmin = false;
             administratorsRef.on("value", function (snapshot) {
                 console.log(snapshot.val());
                 var databaseValue = snapshot.val();
-                if (auth.uid == databaseValue)
-                    return true;
-                else
-                    return false;
+                if (globalAuthData.uid == databaseValue) {
+                    isUserAdmin = true;
+                    defer.resolve(isUserAdmin);
+                }
             }, function (error) {
                 console.log("The read failed: " + error);
-                return false;
+                defer.reject(isUserAdmin);
             });
+            return defer.promise;
         }
 
-        this.sessionExists = function () {
+        FirebaseService.sessionExists = function () {
             var isValidSession = false;
             if (globalAuthData === undefined) {
                 isValidSession = true;
@@ -55,20 +60,20 @@
             return isValidSession;
         }
 
-        this.getGlobalAuthData = function () {
+        FirebaseService.getGlobalAuthData = function () {
             return globalAuthData;
         }
 
-        this.setGlobalAuthData = function (newGlobalAuthData) {
+        FirebaseService.setGlobalAuthData = function (newGlobalAuthData) {
             globalAuthData = newGlobalAuthData;
         }
 
-        this.saveTicket = function (ticket) {
+        FirebaseService.saveTicket = function (ticket) {
             // insert code for persisting ticket to firebase database
             ref.push(ticket);
         }
 
-        this.GetDataFromDb = function () {
+        FirebaseService.GetDataFromDb = function () {
             ref.on("value", function (snapshot) {
                 var messagesFromDb = snapshot.val();
 
