@@ -38,11 +38,13 @@
             // with '$q' we can make a piece of synchronous code
             var defer = $q.defer();
             var isUserAdmin = false;
-            administratorsRef.on("value", function (snapshot) {
-                console.log(snapshot.val());
-                var databaseValue = snapshot.val();
-                if (globalAuthData.uid == databaseValue) {
+            administratorsRef.on("value", function (snapshot) {                
+                var databaseValue = snapshot.val();  
+                console.log(databaseValue);
+                console.log(globalAuthData.uid);
+                if (globalAuthData.uid === databaseValue) {
                     isUserAdmin = true;
+                    console.log("Uid gelijk, ga door naar admin");
                     defer.resolve(isUserAdmin);
                 }
             }, function (error) {

@@ -15,7 +15,7 @@
                 password: pass
             }).then(function (resp) {
                 // succesful response
-                if ($scope.isUserAdminType()) {
+                if ($scope.checkUserType()) {
                     // user is admin proceed to ticket-overview page
                     $state.go("ticket-overview");
                 } else {
