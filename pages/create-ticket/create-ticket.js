@@ -8,7 +8,7 @@
      * # TestCtrl
      * Controller of the trunkApp
      */
-    window.app.controller('CreateTicketCtrl', ['$scope', 'FirebaseService', function ($scope, FirebaseService) {
+    window.app.controller('CreateTicketCtrl', ['$scope', 'FirebaseService','SharedDataService', function ($scope, FirebaseService, SharedDataService) {
         $scope.message = 'hello world';
         $scope.date = new Date();
 
