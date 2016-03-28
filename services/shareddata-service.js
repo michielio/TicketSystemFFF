@@ -1,4 +1,5 @@
 window.app.factory('SharedDataService', [function () {
+    var SharedDataService = this;
     var sharedTicketData = {} ;
 
     function SetSharedTicketData(data) {
@@ -11,7 +12,7 @@ window.app.factory('SharedDataService', [function () {
         return sharedTicketData;
     }
     
-    this.ticketTypes = [{
+    SharedDataService.ticketTypes = [{
             id: 1,
             name: "feature"
             },
@@ -26,7 +27,7 @@ window.app.factory('SharedDataService', [function () {
             name: "other"
             }];
 
-    this.statusTypes = [{
+    SharedDataService.statusTypes = [{
             id: 1,
             name: "unsigned"
             },
@@ -41,7 +42,7 @@ window.app.factory('SharedDataService', [function () {
             name: "solved"
             }];
 
-    this.priorityTypes = [{
+    SharedDataService.priorityTypes = [{
             id: 1,
             name: "low"
             },
@@ -60,9 +61,9 @@ window.app.factory('SharedDataService', [function () {
     return {
         SetSharedTicketData : SetSharedTicketData,
         GetSharedTicketData : GetSharedTicketData,
-        ticketTypes : this.ticketTypes,
-        statusTypes : this.statusTypes,
-        priorityTypes : this.priorityTypes
+        ticketTypes : SharedDataService.ticketTypes,
+        statusTypes : SharedDataService.statusTypes,
+        priorityTypes : SharedDataService.priorityTypes
     }
 
     }]);
