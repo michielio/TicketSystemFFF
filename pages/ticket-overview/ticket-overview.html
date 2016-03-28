@@ -59,7 +59,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="clickable-row" ng-class="setPriorityColour(ticket.priority)" ng-click="editTicket(ticket.ticketnumber)" ng-repeat="ticket in tickets | filter:filterTickets | orderBy: creation">
+                            <tr class="clickable-row" ng-class="setPriorityColour(ticket.priority)" ng-click="editTicket(ticket)" ng-repeat="ticket in tickets | filter:filterTickets | orderBy: creation">
                                 <td class="">{{ ticket.ticketnumber }}</td>
                                 <td class="">{{ ticket.created }}</td>
                                 <td class="">{{ ticket.subject }}</td>

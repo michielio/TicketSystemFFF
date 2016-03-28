@@ -12,20 +12,7 @@
         $scope.message = 'hello world';
         $scope.date = new Date();
 
-        $scope.ticketTypes = [{
-                id: 1,
-                name: "feature"
-            },
-            {
-                id: 2,
-                name: "bug"
-            }, {
-                id: 3,
-                name: "unclear"
-            }, {
-                id: 4,
-                name: "other"
-            }];
+        $scope.ticketTypes = SharedDataService.ticketTypes ;
 
         $scope.createTicket = function () {
             var newTicket = CreateNewTicketObject();
@@ -40,9 +27,9 @@
             var na = "NA";
 
             var newTicket = {
-                ticketnr: $scope.ticketNumber,
+                ticketnumber: $scope.ticketNumber,
                 subject: $scope.ticketName,
-                creationTime: creationTime,
+                created: creationTime,
                 type: $scope.selectedTicketType,
                 email: $scope.emailConnectedToTicket,
                 description: $scope.ticketDescription,
@@ -57,7 +44,7 @@
         }
 
         function AddNewTicketToDb(newTicket) {
-            FirebaseService.saveTicket(newTicket) ;
+            FirebaseService.saveTicketinDb(newTicket) ;
         }
 
 	 }]);
