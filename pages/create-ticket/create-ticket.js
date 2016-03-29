@@ -15,17 +15,12 @@
 
         $scope.createTicket = function () {
             var newTicket = CreateNewTicketObject();
-            console.log(newTicket);
-
             FirebaseService.createTicketinDb(newTicket);
         }
 
         function CreateNewTicketObject() {
             var currentDate = new Date();
-            var creationMinutes = currentDate.getUTCMinutes();
-            if(creationMinutes < 10){
-                creationMinutes = "0" + creationMinutes;
-            }
+            var creationMinutes = assignCreationMinutes(currentDate);
             var creationTime = currentDate.getDate() + "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getFullYear() + " " + currentDate.getUTCHours() + ":" + creationMinutes;
 
             var recieveUpdates = assignRecieveUpdates();
@@ -45,9 +40,6 @@
                 solution: na,
                 solvedDate: na
             }
-
-            console.log(newTicket);
-
             return newTicket;
         }
 
@@ -57,8 +49,15 @@
             if ($scope.recieveUpdates !== undefined) {
                 recieveUpdates = true;
             }
-
             return recieveUpdates;
+        }
+
+        function assignCreationMinutes(currentDate) {
+            var creationMinutes = currentDate.getUTCMinutes();
+            if (creationMinutes < 10) {
+                creationMinutes = "0" + creationMinutes;
+            }
+            return creationMinutes;
         }
 	 }]);
 })();
