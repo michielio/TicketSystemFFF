@@ -86,7 +86,7 @@
         firebaseService.updateTicketInDb = function (changedTicket) {
             var ticketObjectKey = Object.keys(changedTicket)[0];
             var ticketToChangeRef = ticketsDataRef.child(ticketObjectKey);
-            
+
             ticketToChangeRef.update({
                 'ticketnumber': changedTicket.ticketnumber,
                 'subject': changedTicket.subject,
@@ -112,6 +112,14 @@
                 defer.reject(errorObject);
             });
             return defer.promise;
+        }
+
+        firebaseService.convertToArray = function (objectData) {            
+            var array = $.map(objectData, function (value, index) {
+                return [value];
+            });
+            
+            return array ;
         }
 
         firebaseService.getTickets = function () {
