@@ -20,8 +20,6 @@
         $scope.tickets = [];
 
         FirebaseService.getTicketDataFromDb().then(function (tickets) {
-            console.log(tickets);
-            console.log(Object.keys(tickets)[1]);
             $scope.tickets = FirebaseService.convertToArray(tickets);
             $scope.ticketsLoaded = true;
         }, function (error) {
@@ -29,8 +27,6 @@
         });
 
         $scope.editTicket = function (selectedTicket) {
-            console.log(selectedTicket.ticketnumber);
-
             SharedDataService.SetSharedTicketData(selectedTicket);
 
             $state.go("edit-ticket");
@@ -58,8 +54,6 @@
             if ($scope.tickets !== undefined) {
                 if ($scope.search != undefined && $scope.search != "") {
                     if (ticket.subject.toLocaleLowerCase().indexOf($scope.search.toLowerCase()) > -1) {
-                        filterSearch = true;
-                    } else if (ticket.ticketnumber.toLocaleLowerCase().indexOf($scope.search.toLowerCase()) > -1) {
                         filterSearch = true;
                     }
                 } else {
