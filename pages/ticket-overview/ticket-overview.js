@@ -14,17 +14,22 @@
         $scope.creation = 'ticketnumber';
         $scope.type = '';
 
+        $scope.tickets = undefined;
 
-        $scope.tickets = FirebaseService.tickets;
-        
-        console.log($scope.tickets) ;
-         
+        FirebaseService.getTicketDataFromDb().then(function (tickets) {
+            console.log(tickets);
+            console.log(Object.keys(tickets)[1]);
+            $scope.tickets = tickets;
+        }, function (error) {
+            console.log("Something went wrong");
+        });
+
         $scope.editTicket = function (selectedTicket) {
             console.log(selectedTicket.ticketnumber);
-            
-            SharedDataService.SetSharedTicketData(selectedTicket) ;
-            
-            window.location= '/index.html#/edit-ticket';
+
+            SharedDataService.SetSharedTicketData(selectedTicket);
+
+            window.location = '/index.html#/edit-ticket';
         }
 
         $scope.setPriorityColour = function (priority) {
