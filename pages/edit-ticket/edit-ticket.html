@@ -48,6 +48,7 @@
         <div class="form-group">
             <label for="ticketSolved">Ticket Solved:</label>
             <input id="ticketSolved" type="checkbox" ng-model="SelectedTicket.ticketSolved" ng-click="IsTicketSolved()">
+            <span ng-show="SelectedTicket.recieve_updates == true">LET OP! Verzender ontvangt mail!</span>
         </div>
 
         
