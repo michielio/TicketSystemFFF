@@ -8,7 +8,7 @@
      * # TestCtrl
      * Controller of the trunkApp
      */
-    window.app.controller('CreateTicketCtrl', ['$scope', 'FirebaseService', 'SharedDataService', function ($scope, FirebaseService, SharedDataService) {
+    window.app.controller('CreateTicketCtrl', ['$scope', '$state', 'FirebaseService', 'SharedDataService', function ($scope, $state, FirebaseService, SharedDataService) {
         $scope.date = new Date();
 
         $scope.ticketTypes = SharedDataService.ticketTypes;
@@ -16,6 +16,8 @@
         $scope.createTicket = function () {
             var newTicket = CreateNewTicketObject();
             FirebaseService.createTicketinDb(newTicket);
+            alert("Bedankt voor uw ticket!");
+            $state.go('login');
         }
 
         function CreateNewTicketObject() {
