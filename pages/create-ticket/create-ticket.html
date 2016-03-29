@@ -3,18 +3,18 @@
     <h2 style="text-align: center">Ticket Aanmaken</h2>
     <form role="form">
         <div class="form-group">
-            <label for="datum">Time: </label>
-            <label type="date" id="datum" controller="loadCurrentDateTime">{{date | date:'dd-MM-yyyy'}}</label>
+            <label for="date">Time: </label>
+            <label type="date" id="date">{{date | date:'dd-MM-yyyy'}}</label>
         </div>
 
         <div class="form-group">
             <label for="ticketNr">Ticket Number:</label>
-            <label id="ticketNr" ng-model="ticketNumber">10</label>
+            <label id="ticketNr" >{{ticketNumber}}</label>
         </div>
 
         <div class="form-group">
             <label for="email">Email Address:</label>
-            <input type="email" class="form-control" id="email" ng-model="emailConnectedToTicket">
+            <input type="email" class="form-control" id="email" ng-model="email">
         </div>
 
         <div class="form-group">
@@ -24,8 +24,8 @@
 
         <div class="form-group">
             <label for="ticketType">Ticket Type:</label>
-            <select name="selectTicketType" id="selectTicketType" ng-model="selectedTicketType">
-                <option ng-repeat="option in ticketTypes" value="{{option}}">{{option.name}}</option>
+            <select name="selectTicketType" id="ticketType" ng-model="selectedTicketType">
+                <option ng-repeat="option in ticketTypes" value="{{option.name}}">{{option.name}}</option>
             </select>
         </div>
 
@@ -35,8 +35,8 @@
         </div>
 
         <div class="form-group">
-            <label for="ticketDescription">Krijg status updates over deze ticket via de mail:</label>
-            <input type="checkbox" ng-model="revieveUpdates">
+            <label for="recieveUpdates">Krijg status updates over deze ticket via de mail:</label>
+            <input id="recieveUpdates" type="checkbox" ng-model="recieveUpdates"/>
         </div>
 
         <button type="submit" class="btn btn-default" ng-click="createTicket()">Submit</button>

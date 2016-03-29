@@ -77,14 +77,13 @@
             globalAuthData = newGlobalAuthData;
         }
 
-        firebaseService.saveTicketinDb = function (ticket) {
+        firebaseService.createTicketinDb = function (ticket) {
             // insert code for persisting ticket to firebase database
-            ref.push(ticket);
+            ticketsDataRef.push(ticket);
         }
 
         firebaseService.updateTicketInDb = function (changedTicket) {
-            var savedTicketsRef = ref.chilld("tickets");
-            var ticketToChangeRef = savedTicketsRef.child("ticketid"); // Ik weet nog niet hoe Firebase deze tickets gaat noemen!
+            var ticketToChangeRef = ticketsDataRef.child("ticketid"); // Ik weet nog niet hoe Firebase deze tickets gaat noemen!
 
             ticketToChangeRef.update({
                 'ticketnumber': changedTicket.ticketnumber,
