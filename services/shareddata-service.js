@@ -1,6 +1,6 @@
 window.app.factory('SharedDataService', [function () {
-    var SharedDataService = this;
-    var sharedTicketData = {} ;
+    var sharedDataService = this;
+    var sharedTicketData = undefined;
 
     function SetSharedTicketData(data) {
         console.log("before");
@@ -11,8 +11,18 @@ window.app.factory('SharedDataService', [function () {
     function GetSharedTicketData() {
         return sharedTicketData;
     }
-    
-    SharedDataService.ticketTypes = [{
+
+    function SharedTicketDataExists() {
+        var sharedTicketDataExists = false;
+
+        if (sharedTicketData !== undefined) {
+            sharedTicketDataExists = true;
+        }
+
+        return sharedTicketDataExists;
+    }
+
+    sharedDataService.ticketTypes = [{
             id: 1,
             name: "feature"
             },
@@ -27,7 +37,7 @@ window.app.factory('SharedDataService', [function () {
             name: "other"
             }];
 
-    SharedDataService.statusTypes = [{
+    sharedDataService.statusTypes = [{
             id: 1,
             name: "unsigned"
             },
@@ -42,7 +52,7 @@ window.app.factory('SharedDataService', [function () {
             name: "solved"
             }];
 
-    SharedDataService.priorityTypes = [{
+    sharedDataService.priorityTypes = [{
             id: 1,
             name: "low"
             },
@@ -56,14 +66,15 @@ window.app.factory('SharedDataService', [function () {
             id: 4,
             name: "top priority"
             }];
-    
-    
+
+
     return {
-        SetSharedTicketData : SetSharedTicketData,
-        GetSharedTicketData : GetSharedTicketData,
-        ticketTypes : SharedDataService.ticketTypes,
-        statusTypes : SharedDataService.statusTypes,
-        priorityTypes : SharedDataService.priorityTypes
+        SetSharedTicketData: SetSharedTicketData,
+        GetSharedTicketData: GetSharedTicketData,
+        SharedTicketDataExists : SharedTicketDataExists,
+        ticketTypes: sharedDataService.ticketTypes,
+        statusTypes: sharedDataService.statusTypes,
+        priorityTypes: sharedDataService.priorityTypes
     }
 
     }]);

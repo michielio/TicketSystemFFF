@@ -2,16 +2,16 @@
     'use strict';
 
     window.app.service('FirebaseService', ['$q', function ($q) {
-        var FirebaseService = this;
+        var firebaseService = this;
         var FIREBASE_DATABASE_URL = "https://intense-fire-2806.firebaseio.com/";
         var ref = new Firebase(FIREBASE_DATABASE_URL);
         var administratorsRef = ref.child("administrator");
-        var ticketsDataRef = ref.child("tickets") ;
-        
+        var ticketsDataRef = ref.child("tickets");
+
         var globalAuthData = undefined;
         var userType = undefined;
 
-        FirebaseService.login = function (user) {
+        firebaseService.login = function (user) {
             // with '$q' we can make a piece of synchronous code
             var defer = $q.defer();
             ref.authWithPassword({
@@ -25,13 +25,13 @@
                     globalAuthData = authData;
                     console.log("Authenticated successfully with payload:", authData);
                     // we pass on the defer to the method which will determine the userType
-                    FirebaseService.retrieveUserType(defer);
+                    firebaseService.retrieveUserType(defer);
                 }
             });
             return defer.promise;
         }
 
-        FirebaseService.retrieveUserType = function (defer) {
+        firebaseService.retrieveUserType = function (defer) {
             administratorsRef.on("value", function (snapshot) {
                 var databaseValue = snapshot.val();
                 if (globalAuthData.uid === databaseValue) {
@@ -47,33 +47,42 @@
             });
         }
 
-        FirebaseService.logout = function () {
+        firebaseService.logout = function () {
             ref.unauth();
             globalAuthData = null;
         }
 
-        FirebaseService.sessionExists = function () {
-            var isValidSession = false;
-            if (globalAuthData === undefined) {
-                isValidSession = true;
+        firebaseService.sessionExists = function () {
+            var sessionExists = false;
+            if (globalAuthData !== undefined) {
+                sessionExists = true;
             }
-            return isValidSession;
+            return sessionExists;
         }
 
-        FirebaseService.getGlobalAuthData = function () {
+        firebaseService.isUserAdmin = function () {
+            var isUserAdmin = false;
+
+            if (userType === 'admin') {
+                isUserAdmin = true;
+            }
+            return isUserAdmin;
+        }
+
+        firebaseService.getGlobalAuthData = function () {
             return globalAuthData;
         }
 
-        FirebaseService.setGlobalAuthData = function (newGlobalAuthData) {
+        firebaseService.setGlobalAuthData = function (newGlobalAuthData) {
             globalAuthData = newGlobalAuthData;
         }
 
-        FirebaseService.saveTicketinDb = function (ticket) {
+        firebaseService.saveTicketinDb = function (ticket) {
             // insert code for persisting ticket to firebase database
             ref.push(ticket);
         }
 
-        FirebaseService.updateTicketInDb = function (changedTicket) {
+        firebaseService.updateTicketInDb = function (changedTicket) {
             var savedTicketsRef = ref.chilld("tickets");
             var ticketToChangeRef = savedTicketsRef.child("ticketid"); // Ik weet nog niet hoe Firebase deze tickets gaat noemen!
 
@@ -89,7 +98,7 @@
                 'recieve_updates': changedTicket.recieve_updates,
                 'solution': changedTicket.solution,
                 'solvedDate': changedTicket.solvedDate
-            }) ;
+            });
 
             /*          Voor de test app
 
@@ -103,23 +112,23 @@
                         }*/
         }
 
-        FirebaseService.getTicketDataFromDb = function () {
+        firebaseService.getTicketDataFromDb = function () {
             ticketsDataRef.on("value", function (snapshot) {
                 console.log(snapshot.val());
             }, function (errorObject) {
                 console.log("The read failed: " + errorObject.code + "  " + globalAuthData.uid);
             });
-            
-            
-/*            ticketDataRef.on("value", function (snapshot) {
-                console.log(snapshot.val());
-            }, function (errorObject) {
-                console.log("The read failed: " + errorObject.code);
-            });*/
+
+
+            /*            ticketDataRef.on("value", function (snapshot) {
+                            console.log(snapshot.val());
+                        }, function (errorObject) {
+                            console.log("The read failed: " + errorObject.code);
+                        });*/
         }
 
 
-        FirebaseService.tickets = [{
+        firebaseService.tickets = [{
                 'ticketnumber': '1',
                 'subject': 'Test 1',
                 'created': '11-03-2016',

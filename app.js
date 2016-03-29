@@ -13,7 +13,6 @@ window.app = angular.module('myApp', ['ui.router'])
 
 
 .config(function ($stateProvider, $urlRouterProvider) {
-    console.log("hallo!");
     $stateProvider
 
         .state('login', {
@@ -21,7 +20,7 @@ window.app = angular.module('myApp', ['ui.router'])
         templateUrl: 'pages/login/login.html',
         controller: 'LoginCtrl',
         onEnter: function ($state) {
-            console.log("Welcome tod login");
+            console.log("Welcome to login");
         }
     })
 
@@ -29,8 +28,14 @@ window.app = angular.module('myApp', ['ui.router'])
         url: '/create-ticket',
         templateUrl: 'pages/create-ticket/create-ticket.html',
         controller: 'CreateTicketCtrl',
-        onEnter: function ($state) {
-            console.log("Welcome to create-ticket");
+        onEnter: function ($state, FirebaseService) {
+            if (FirebaseService.sessionExists() && !FirebaseService.isUserAdmin()) {
+                console.log(FirebaseService.sessionExists());
+                console.log(FirebaseService.isUserAdmin());
+                console.log("Welcome to create-ticket");
+            } else {
+                $state.go('login');
+            }
         }
     })
 
@@ -38,8 +43,12 @@ window.app = angular.module('myApp', ['ui.router'])
         url: '/ticket-overview',
         templateUrl: 'pages/ticket-overview/ticket-overview.html',
         controller: 'TicketOverviewCtrl',
-        onEnter: function ($state) {
-            console.log("Welcome to ticket-overview");
+        onEnter: function ($state, FirebaseService) {
+            if (FirebaseService.sessionExists() && FirebaseService.isUserAdmin()) {
+                console.log("Welcome to ticket-overview");
+            } else {
+                $state.go('login');
+            }
         }
     })
 
@@ -47,8 +56,16 @@ window.app = angular.module('myApp', ['ui.router'])
         url: '/edit-ticket',
         templateUrl: 'pages/edit-ticket/edit-ticket.html',
         controller: 'EditTicketCtrl',
-        onEnter: function ($state) {
-            console.log("Welcome to edit ticket");
+        onEnter: function ($state, FirebaseService, SharedDataService) {
+            if (FirebaseService.sessionExists() && FirebaseService.isUserAdmin()) {
+                if (SharedDataService.SharedTicketDataExists()) {
+                    console.log("Welcome to edit ticket");
+                } else {
+                    $state.go("ticket-overview");
+                }
+            } else {
+                $state.go('login');
+            }
         }
     })
 
