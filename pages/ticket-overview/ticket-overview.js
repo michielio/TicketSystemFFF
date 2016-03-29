@@ -16,7 +16,6 @@
         $scope.creation = 'ticketnumber';
         $scope.type = '';
 
-
         $scope.tickets = [];
 
         FirebaseService.getTicketDataFromDb().then(function (tickets) {
@@ -28,7 +27,6 @@
 
         $scope.editTicket = function (selectedTicket) {
             SharedDataService.SetSharedTicketData(selectedTicket);
-
             $state.go("edit-ticket");
         }
 
@@ -49,8 +47,6 @@
             var filterType = false;
             var filterPriority = false;
 
-            console.log("lol") ;
-            
             if ($scope.tickets !== undefined) {
                 if ($scope.search != undefined && $scope.search != "") {
                     if (ticket.subject.toLocaleLowerCase().indexOf($scope.search.toLowerCase()) > -1) {

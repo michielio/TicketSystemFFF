@@ -3,8 +3,6 @@ window.app.factory('SharedDataService', [function () {
     var sharedTicketData = undefined;
 
     function SetSharedTicketData(data) {
-        console.log("before");
-        console.log(data);
         sharedTicketData = data;
     }
 

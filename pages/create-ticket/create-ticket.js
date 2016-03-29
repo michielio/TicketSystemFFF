@@ -8,27 +8,28 @@
      * # TestCtrl
      * Controller of the trunkApp
      */
-    window.app.controller('CreateTicketCtrl', ['$scope', 'FirebaseService','SharedDataService', function ($scope, FirebaseService, SharedDataService) {
+    window.app.controller('CreateTicketCtrl', ['$scope', '$state', 'FirebaseService', 'SharedDataService', function ($scope, $state, FirebaseService, SharedDataService) {
         $scope.date = new Date();
 
-        $scope.ticketTypes = SharedDataService.ticketTypes ;
+        $scope.ticketTypes = SharedDataService.ticketTypes;
 
         $scope.createTicket = function () {
             var newTicket = CreateNewTicketObject();
-            console.log(newTicket);
-           
-            FirebaseService.createTicketinDb(newTicket) ;   
+            FirebaseService.createTicketinDb(newTicket);
+            alert("Bedankt voor uw ticket!");
+            $state.go('login');
         }
 
         function CreateNewTicketObject() {
-            var creationTime = new Date();
-            creationTime = creationTime.toString();
-            
-            var recieveUpdates = assignRecieveUpdates() ;
-            
+            var currentDate = new Date();
+            var creationMinutes = assignCreationMinutes(currentDate);
+            var creationTime = currentDate.getDate() + "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getFullYear() + " " + currentDate.getUTCHours() + ":" + creationMinutes;
+
+            var receiveUpdates = assignReceiveUpdates();
+
             var unsolved = "unsolved";
             var na = "NA";
-        
+
             var newTicket = {
                 subject: $scope.ticketName,
                 created: creationTime,
@@ -37,24 +38,28 @@
                 description: $scope.ticketDescription,
                 status: unsolved,
                 priority: na,
-                recieve_updates: recieveUpdates,
+                receive_updates: receiveUpdates,
                 solution: na,
                 solvedDate: na
             }
-
-            console.log(newTicket) ;
-            
             return newTicket;
         }
-        
-        function assignRecieveUpdates(){
-            var recieveUpdates = false ;
-            
-            if($scope.recieveUpdates !== undefined){
-                recieveUpdates = true;
-            } 
-            
-            return recieveUpdates ;
+
+        function assignReceiveUpdates() {
+            var receiveUpdates = false;
+
+            if ($scope.receiveUpdates !== undefined) {
+                receiveUpdates = true;
+            }
+            return receiveUpdates;
+        }
+
+        function assignCreationMinutes(currentDate) {
+            var creationMinutes = currentDate.getUTCMinutes();
+            if (creationMinutes < 10) {
+                creationMinutes = "0" + creationMinutes;
+            }
+            return creationMinutes;
         }
 	 }]);
 })();

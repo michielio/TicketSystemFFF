@@ -97,7 +97,7 @@
                 'description': changedTicket.description,
                 'status': changedTicket.status,
                 'priority': changedTicket.priority,
-                'recieve_updates': changedTicket.recieve_updates,
+                'receive_updates': changedTicket.receive_updates,
                 'solution': changedTicket.solution,
                 'solvedDate': changedTicket.solvedDate
             });
