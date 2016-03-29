@@ -10,17 +10,17 @@
                     <div class="input-group" style="width: 100%; text-align: center;">
                         <form id="login_form">
                             <div class="form-group">
-                                <label for="labelEmail">Email adres:</label>
+                                <label for="labelEmail">E-mailadres:</label>
                                 <input type="email" required class="form-control" id="txtEmail" placeholder="Enter email" name="email" ng-model="email" />
                                 <span class="help-block" ng-show="login_form.email.$error.required">Required</span>
                             </div>
                             <div class="form-group" style="margin-top:50px;" >
-                                <label for="labelPassword">Password:</label>
+                                <label for="labelPassword">Wachtwoord:</label>
                                 <input type="password" required class="form-control" id="txtPass" placeholder="Password" name="password" ng-model="password" />
                                 <span class="help-block" ng-show="login_form.password.$error.required">Required</span>
                             </div>
                             <div class="form-group">
-                                <button type="submit" id="login_button" class="btn btn-default btn-block" style="margin-top:40px;" ng-click="loginClick(email, password)">Login</button>
+                                <button type="submit" id="login_button" class="btn btn-default btn-block" style="margin-top:40px;" ng-click="loginClick(email, password)">Inloggen</button>
                             </div>
                         </form>
                     </div>

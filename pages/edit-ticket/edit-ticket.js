@@ -31,20 +31,6 @@
             
             console.log("after") ;
             console.log($scope.SelectedTicket) ;
-            
-/*            var newTicket = {
-                ticketnumber: $scope.SelectedTicket.ticketNumber,
-                subject: $scope.ticketName,
-                created: $scope.created,
-                type: $scope.selectedTicketType,
-                email: $scope.emailConnectedToTicket,
-                description: $scope.ticketDescription,
-                status: $scope.ticketSatus,
-                priority: $scope.ticketPriority,
-                recieve_updates: $scope.revieveUpdates,
-                solution: na,
-                solvedDate: IssueSolvedDate() 
-            }*/
 
             return changedTicket;
         }

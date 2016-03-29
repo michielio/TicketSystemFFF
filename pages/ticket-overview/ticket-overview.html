@@ -25,7 +25,7 @@
                             <option value="feature">Feature</option>
                             <option value="bug">Bug</option>
                             <option value="unclear">Unclear</option>
-                            <option value="remaining">Remaining</option>
+                            <option value="other">Other</option>
                             <option value="">All</option>
                         </select>
                     </div>
@@ -42,30 +42,27 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-
-
-
-
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>TicketNumber #</th>
                                 <th>Created</th>
                                 <th>Subject</th>
                                 <th>Type</th>
                                 <th>Status</th>
                                 <th>Solved Date</th>
+                                <th>Recieve Update</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody ng-if="ticketsLoaded">
+                            <!--<tr class="clickable-row" ng-class="setPriorityColour(ticket.priority)" ng-click="editTicket(ticket)" ng-repeat="ticket in tickets | filter:filterTickets | orderBy: creation">-->
                             <tr class="clickable-row" ng-class="setPriorityColour(ticket.priority)" ng-click="editTicket(ticket)" ng-repeat="ticket in tickets | filter:filterTickets | orderBy: creation">
-                                <td class="">{{ ticket.ticketnumber }}</td>
                                 <td class="">{{ ticket.created }}</td>
                                 <td class="">{{ ticket.subject }}</td>
                                 <td class="">{{ ticket.type }}</td>
                                 <td class="">{{ ticket.status }}</td>
                                 <td class="">{{ ticket.solved }}</td>
+                                <td class="">{{ ticket.receive_updates }}</td>
                             </tr>
                         </tbody>
                     </table>

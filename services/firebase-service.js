@@ -10,6 +10,7 @@
 
         var globalAuthData = undefined;
         var userType = undefined;
+        var tickets = undefined;
 
         firebaseService.login = function (user) {
             // with '$q' we can make a piece of synchronous code
@@ -83,10 +84,12 @@
         }
 
         firebaseService.updateTicketInDb = function (changedTicket) {
-            var ticketToChangeRef = ticketsDataRef.child(changedTicket); // Ik weet nog niet hoe Firebase deze tickets gaat noemen!
+            var ticketObjectKey = changedTicket["key"];
+            var ticketToChangeRef = ticketsDataRef.child(ticketObjectKey);
 
+            delete changedTicket["key"] ;
+            
             ticketToChangeRef.update({
-                'ticketnumber': changedTicket.ticketnumber,
                 'subject': changedTicket.subject,
                 'created': changedTicket.created,
                 'type': changedTicket.type,
@@ -94,62 +97,46 @@
                 'description': changedTicket.description,
                 'status': changedTicket.status,
                 'priority': changedTicket.priority,
-                'recieve_updates': changedTicket.recieve_updates,
+                'receive_updates': changedTicket.receive_updates,
                 'solution': changedTicket.solution,
                 'solvedDate': changedTicket.solvedDate
             });
         }
 
         firebaseService.getTicketDataFromDb = function () {
+            var defer = $q.defer();
             ticketsDataRef.on("value", function (snapshot) {
-                console.log(snapshot.val());
+                firebaseService.setTickets(snapshot.val());
+                defer.resolve(snapshot.val());
             }, function (errorObject) {
                 console.log("The read failed: " + errorObject.code + "  " + globalAuthData.uid);
+                defer.reject(errorObject);
             });
+            return defer.promise;
         }
 
-        firebaseService.tickets = firebaseService.getTicketDataFromDb() ;
-/*        firebaseService.tickets = [{
-                'ticketnumber': '1',
-                'subject': 'Test 1',
-                'created': '11-03-2016',
-                'type': 'feature',
-                'email': 'joery@mail.com',
-                'description': 'Test 1',
-                'status': 'unsigned',
-                'priority': 'low',
-                'recieve_updates': true,
-                'solution': 'Na',
-                'solvedDate': 'Na'
-                           },
+        firebaseService.convertToArray = function (objectData) {            
+            var array = $.map(objectData, function (value, index) {
+                console.log("Before : " + index) ;
+                console.log(value) ;
+                
+                value["key"] = index ;
+                console.log("After : " + index) ;
+                console.log(value) ;
+                
+                return [value];
+            });
+            
+            return array ;
+        }
 
-            {
-                'ticketnumber': '2',
-                'subject': 'Test 2',
-                'created': '12-02-2016',
-                'type': 'feature',
-                'email': 'wouter@mail.com',
-                'description': 'Test 2',
-                'status': 'unsigned',
-                'priority': 'high',
-                'recieve_updates': false,
-                'solution': 'Na',
-                'solvedDate': 'Na'
-                           },
+        firebaseService.getTickets = function () {
+            return tickets;
+        }
 
-            {
-                'ticketnumber': '3',
-                'subject': 'HET DOET HET MAAR!',
-                'created': '12-03-2016',
-                'type': 'feature',
-                'email': 'vincent@mail.com',
-                'description': 'Test 3',
-                'status': 'unsigned',
-                'priority': 'average',
-                'recieve_updates': false,
-                'solution': 'Na',
-                'solvedDate': 'Na'
-                           }
-            ];*/
+        firebaseService.setTickets = function (newTickets) {
+            tickets = newTickets;
+        }
+
     }]);
 })();
