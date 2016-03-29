@@ -51,6 +51,7 @@
                                 <th>Type</th>
                                 <th>Status</th>
                                 <th>Solved Date</th>
+                                <th>Recieve Update</th>
                             </tr>
                         </thead>
                         <tbody ng-if="ticketsLoaded">
@@ -61,6 +62,7 @@
                                 <td class="">{{ ticket.type }}</td>
                                 <td class="">{{ ticket.status }}</td>
                                 <td class="">{{ ticket.solved }}</td>
+                                <td class="">{{ ticket.receive_updates }}</td>
                             </tr>
                         </tbody>
                     </table>

@@ -25,7 +25,7 @@
             var creationMinutes = assignCreationMinutes(currentDate);
             var creationTime = currentDate.getDate() + "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getFullYear() + " " + currentDate.getUTCHours() + ":" + creationMinutes;
 
-            var recieveUpdates = assignRecieveUpdates();
+            var receiveUpdates = assignReceiveUpdates();
 
             var unsolved = "unsolved";
             var na = "NA";
@@ -38,20 +38,20 @@
                 description: $scope.ticketDescription,
                 status: unsolved,
                 priority: na,
-                recieve_updates: recieveUpdates,
+                receive_updates: receiveUpdates,
                 solution: na,
                 solvedDate: na
             }
             return newTicket;
         }
 
-        function assignRecieveUpdates() {
-            var recieveUpdates = false;
+        function assignReceiveUpdates() {
+            var receiveUpdates = false;
 
-            if ($scope.recieveUpdates !== undefined) {
-                recieveUpdates = true;
+            if ($scope.receiveUpdates !== undefined) {
+                receiveUpdates = true;
             }
-            return recieveUpdates;
+            return receiveUpdates;
         }
 
         function assignCreationMinutes(currentDate) {
