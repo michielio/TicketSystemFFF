@@ -6,7 +6,8 @@
         var FIREBASE_DATABASE_URL = "https://intense-fire-2806.firebaseio.com/";
         var ref = new Firebase(FIREBASE_DATABASE_URL);
         var administratorsRef = ref.child("administrator");
-
+        var ticketsDataRef = ref.child("tickets") ;
+        
         var globalAuthData = undefined;
         var userType = undefined;
 
@@ -72,14 +73,49 @@
             ref.push(ticket);
         }
 
-        FirebaseService.GetDataFromDb = function () {
-            ref.on("value", function (snapshot) {
-                var messagesFromDb = snapshot.val();
+        FirebaseService.updateTicketInDb = function (changedTicket) {
+            var savedTicketsRef = ref.chilld("tickets");
+            var ticketToChangeRef = savedTicketsRef.child("ticketid"); // Ik weet nog niet hoe Firebase deze tickets gaat noemen!
 
+            ticketToChangeRef.update({
+                'ticketnumber': changedTicket.ticketnumber,
+                'subject': changedTicket.subject,
+                'created': changedTicket.created,
+                'type': changedTicket.type,
+                'email': changedTicket.email,
+                'description': changedTicket.description,
+                'status': changedTicket.status,
+                'priority': changedTicket.priority,
+                'recieve_updates': changedTicket.recieve_updates,
+                'solution': changedTicket.solution,
+                'solvedDate': changedTicket.solvedDate
+            }) ;
 
+            /*          Voor de test app
+
+                        var ammountOfTickets = FirebaseService.tickets.length ;
+                        for(var i = 0; i < ammountOfTickets; i++){
+                            var ticket = FirebaseService.tickets[i] ;
+                            
+                            if(ticket.ticketnumber === changedTicket.ticketnumber){
+                                FirebaseService.tickets[i] = changedTicket ;
+                            }
+                        }*/
+        }
+
+        FirebaseService.getTicketDataFromDb = function () {
+            ticketsDataRef.on("value", function (snapshot) {
+                console.log(snapshot.val());
+            }, function (errorObject) {
+                console.log("The read failed: " + errorObject.code + "  " + globalAuthData.uid);
+            });
+            
+            
+/*            ticketDataRef.on("value", function (snapshot) {
+                console.log(snapshot.val());
             }, function (errorObject) {
                 console.log("The read failed: " + errorObject.code);
-            });
+            });*/
         }
 
 

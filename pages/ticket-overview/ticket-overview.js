@@ -16,7 +16,7 @@
 
 
         $scope.tickets = FirebaseService.tickets;
-
+         
         $scope.editTicket = function (selectedTicket) {
             console.log(selectedTicket.ticketnumber);
             

@@ -18,7 +18,7 @@
 
         $scope.editTicket = function () {
             var changedTicket = ChangeTicketObject();
-            UpdateTicketInDb(changedTicket);
+            FirebaseService.updateTicketInDb(changedTicket);
         }
         
         function ChangeTicketObject() {
