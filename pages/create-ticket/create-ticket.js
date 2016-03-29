@@ -18,9 +18,7 @@
             var newTicket = CreateNewTicketObject();
             console.log(newTicket);
            
-            FirebaseService.createTicketinDb(newTicket) ;
-            
-            
+            FirebaseService.createTicketinDb(newTicket) ;   
         }
 
         function CreateNewTicketObject() {

@@ -83,7 +83,7 @@
         }
 
         firebaseService.updateTicketInDb = function (changedTicket) {
-            var ticketToChangeRef = ticketsDataRef.child("ticketid"); // Ik weet nog niet hoe Firebase deze tickets gaat noemen!
+            var ticketToChangeRef = ticketsDataRef.child(changedTicket); // Ik weet nog niet hoe Firebase deze tickets gaat noemen!
 
             ticketToChangeRef.update({
                 'ticketnumber': changedTicket.ticketnumber,
@@ -98,17 +98,6 @@
                 'solution': changedTicket.solution,
                 'solvedDate': changedTicket.solvedDate
             });
-
-            /*          Voor de test app
-
-                        var ammountOfTickets = FirebaseService.tickets.length ;
-                        for(var i = 0; i < ammountOfTickets; i++){
-                            var ticket = FirebaseService.tickets[i] ;
-                            
-                            if(ticket.ticketnumber === changedTicket.ticketnumber){
-                                FirebaseService.tickets[i] = changedTicket ;
-                            }
-                        }*/
         }
 
         firebaseService.getTicketDataFromDb = function () {
@@ -117,17 +106,10 @@
             }, function (errorObject) {
                 console.log("The read failed: " + errorObject.code + "  " + globalAuthData.uid);
             });
-
-
-            /*            ticketDataRef.on("value", function (snapshot) {
-                            console.log(snapshot.val());
-                        }, function (errorObject) {
-                            console.log("The read failed: " + errorObject.code);
-                        });*/
         }
 
-
-        firebaseService.tickets = [{
+        firebaseService.tickets = firebaseService.getTicketDataFromDb() ;
+/*        firebaseService.tickets = [{
                 'ticketnumber': '1',
                 'subject': 'Test 1',
                 'created': '11-03-2016',
@@ -168,6 +150,6 @@
                 'solution': 'Na',
                 'solvedDate': 'Na'
                            }
-            ];
+            ];*/
     }]);
 })();
