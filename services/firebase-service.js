@@ -6,7 +6,8 @@
         var FIREBASE_DATABASE_URL = "https://intense-fire-2806.firebaseio.com/";
         var ref = new Firebase(FIREBASE_DATABASE_URL);
         var administratorsRef = ref.child("administrator");
-
+        var ticketsDataRef = ref.child("tickets") ;
+        
         var globalAuthData = undefined;
         var userType = undefined;
 
@@ -103,11 +104,7 @@
         }
 
         FirebaseService.getTicketDataFromDb = function () {
-            var ticketDataUrl = "https://intense-fire-2806.firebaseio.com/tickets";
-
-            var ticketDataRef = new FirebaeBase(ticketDataUrl) ;
-            
-            ref.on("value", function (snapshot) {
+            ticketsDataRef.on("value", function (snapshot) {
                 console.log(snapshot.val());
             }, function (errorObject) {
                 console.log("The read failed: " + errorObject.code + "  " + globalAuthData.uid);
