@@ -3,34 +3,29 @@
     <h2 style="text-align: center">Ticket Aanmaken</h2>
     <form role="form">
         <div class="form-group">
-            <label for="date">Time: </label>
+            <label for="date">Tijd: </label>
             <label type="date" id="date">{{date | date:'dd-MM-yyyy'}}</label>
         </div>
 
         <div class="form-group">
-            <label for="ticketNr">Ticket Number:</label>
-            <label id="ticketNr" >{{ticketNumber}}</label>
+            <label for="email">E-mailadres:</label>
+            <input type="email" class="form-control" id="email" ng-model="email"/>
         </div>
 
         <div class="form-group">
-            <label for="email">Email Address:</label>
-            <input type="email" class="form-control" id="email" ng-model="email">
+            <label for="ticketName">Ticket naam:</label>
+            <input type="ticketName" class="form-control" id="ticketName" ng-model="ticketName"/>
         </div>
 
         <div class="form-group">
-            <label for="ticketName">Ticket Naam:</label>
-            <input type="ticketName" class="form-control" id="ticketName" ng-model="ticketName">
-        </div>
-
-        <div class="form-group">
-            <label for="ticketType">Ticket Type:</label>
+            <label for="ticketType">Ticket type:</label>
             <select name="selectTicketType" id="ticketType" ng-model="selectedTicketType">
                 <option ng-repeat="option in ticketTypes" value="{{option.name}}">{{option.name}}</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="ticketDescription">Ticket Beschrijving:</label>
+            <label for="ticketDescription">Ticket beschrijving:</label>
             <textarea type="ticketDescription" class="form-control" id="ticketDescription" ng-model="ticketDescription"></textarea>
         </div>
 
@@ -39,6 +34,6 @@
             <input id="recieveUpdates" type="checkbox" ng-model="recieveUpdates"/>
         </div>
 
-        <button type="submit" class="btn btn-default" ng-click="createTicket()">Submit</button>
+        <button type="submit" class="btn btn-default" ng-click="createTicket()">Versturen</button>
     </form>
 </div>
