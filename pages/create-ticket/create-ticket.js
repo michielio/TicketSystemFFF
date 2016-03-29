@@ -11,7 +11,6 @@
     window.app.controller('CreateTicketCtrl', ['$scope', 'FirebaseService','SharedDataService', function ($scope, FirebaseService, SharedDataService) {
         $scope.date = new Date();
 
-        $scope.ticketNumber = 10 ;
         $scope.ticketTypes = SharedDataService.ticketTypes ;
 
         $scope.createTicket = function () {
@@ -31,7 +30,6 @@
             var na = "NA";
         
             var newTicket = {
-                ticketnumber: $scope.ticketNumber,
                 subject: $scope.ticketName,
                 created: creationTime,
                 type: $scope.selectedTicketType,

@@ -8,28 +8,28 @@
      * # TestCtrl
      * Controller of the trunkApp
      */
-    window.app.controller('TicketOverviewCtrl', ['$scope', 'FirebaseService', 'SharedDataService', function ($scope, FirebaseService, SharedDataService) {
+    window.app.controller('TicketOverviewCtrl', ['$scope', '$state', 'FirebaseService', 'SharedDataService', function ($scope, $state, FirebaseService, SharedDataService) {
+
+        $scope.ticketsLoaded = false;
 
         $scope.priority = '';
         $scope.creation = 'ticketnumber';
         $scope.type = '';
 
-        $scope.tickets = undefined;
+
+        $scope.tickets = [];
 
         FirebaseService.getTicketDataFromDb().then(function (tickets) {
-            console.log(tickets);
-            console.log(Object.keys(tickets)[1]);
-            $scope.tickets = tickets;
+            $scope.tickets = FirebaseService.convertToArray(tickets);
+            $scope.ticketsLoaded = true;
         }, function (error) {
             console.log("Something went wrong");
         });
 
         $scope.editTicket = function (selectedTicket) {
-            console.log(selectedTicket.ticketnumber);
-
             SharedDataService.SetSharedTicketData(selectedTicket);
 
-            window.location = '/index.html#/edit-ticket';
+            $state.go("edit-ticket");
         }
 
         $scope.setPriorityColour = function (priority) {
@@ -49,34 +49,38 @@
             var filterType = false;
             var filterPriority = false;
 
-            if ($scope.search != undefined && $scope.search != "") {
-                if (ticket.subject.toLocaleLowerCase().indexOf($scope.search.toLowerCase()) > -1) {
-                    filterSearch = true;
-                } else if (ticket.ticketnumber.toLocaleLowerCase().indexOf($scope.search.toLowerCase()) > -1) {
+            console.log("lol") ;
+            
+            if ($scope.tickets !== undefined) {
+                if ($scope.search != undefined && $scope.search != "") {
+                    if (ticket.subject.toLocaleLowerCase().indexOf($scope.search.toLowerCase()) > -1) {
+                        filterSearch = true;
+                    }
+                } else {
                     filterSearch = true;
                 }
-            } else {
-                filterSearch = true;
-            }
 
-            if ($scope.type != "") {
-                if ($scope.type.toLowerCase().indexOf(ticket.type.toLowerCase()) > -1) {
+                if ($scope.type != "") {
+                    if ($scope.type.toLowerCase().indexOf(ticket.type.toLowerCase()) > -1) {
+                        filterType = true;
+                    }
+                } else {
                     filterType = true;
                 }
-            } else {
-                filterType = true;
-            }
 
-            if ($scope.priority != "") {
-                if ($scope.priority.toLowerCase().indexOf(ticket.priority.toLowerCase()) > -1) {
+                if ($scope.priority != "") {
+                    if ($scope.priority.toLowerCase().indexOf(ticket.priority.toLowerCase()) > -1) {
+                        filterPriority = true;
+                    }
+                } else {
                     filterPriority = true;
                 }
-            } else {
-                filterPriority = true;
-            }
 
-            if (filterSearch && filterType && filterPriority) {
-                return true;
+                if (filterSearch && filterType && filterPriority) {
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
